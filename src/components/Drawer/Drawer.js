@@ -5,9 +5,9 @@ import {NavLink} from 'react-router-dom'
 import { connect } from 'react-redux';
 
 let Link = [
-    {to: '/auth', label: 'Авториация', exact: true},
-    {to: '/quiz-list', label: 'Список', exact: false},
-    {to: '/quiz-creator', label: 'Создать Тест', exact: false},
+    {to: '/auth', label: 'Authorization', exact: true},
+    {to: '/quiz-list', label: 'Test List', exact: false},
+    {to: '/quiz-creator', label: 'Create Test', exact: false},
 ]
 
 class Drawer extends Component{

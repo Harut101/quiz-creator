@@ -17,7 +17,7 @@ const Result = (props) => {
 
     return(
        <div className='resultBlock'>
-       <p>{count} из {props.quiz.length}</p>
+       <p>{count} from {props.quiz.length}</p>
          <ul>
              {
                 props.quiz.map((question, index)=>{
@@ -36,7 +36,7 @@ const Result = (props) => {
 
          <Button onClick={props.repetGemae}>REPETE</Button>
          <Link to='/quiz-list'>
-             <Button cls='primary'>Перйти в список вопросов</Button>
+             <Button cls='primary'>Go To Tests List</Button>
          </Link>
        </div>
     )

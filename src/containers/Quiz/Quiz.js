@@ -22,7 +22,7 @@ class Quiz extends Component{
         return(
             <div className='Quiz'>
                 <div className="QuizWrapper">
-                <h1>QUIZ</h1>
+                <h1>{this.props.finish ? "RESULT" : "QUIZ"}</h1>
                 { this.props.loading 
                 
                  ?

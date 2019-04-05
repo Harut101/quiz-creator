@@ -10,7 +10,7 @@ const ActiveQuiz = (props) => (
                 {props.questions}
                 </strong>
             </span>
-            <small>{props.activeQuestions + 1} из {props.allQuestions}</small>
+            <small>{props.activeQuestions + 1} from {props.allQuestions}</small>
         </p>
 
 

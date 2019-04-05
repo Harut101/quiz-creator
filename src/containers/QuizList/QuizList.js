@@ -34,7 +34,7 @@ class QuizList extends Component {
         return (
             <div className='QuizList'>
                 <div className='QuizListContent'>
-                    <h1>Список Тестов</h1>
+                    <h1>Tests List</h1>
                     <ul>
                         {this.props.loading ? <Loading/> : this.renderLinks()}
                     </ul>

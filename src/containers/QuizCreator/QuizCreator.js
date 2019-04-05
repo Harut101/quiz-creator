@@ -14,7 +14,7 @@ class QuizCreator extends Component{
     state = {
         stateForm: false,
         form: {
-            questions: formControl({label: 'Ваш Вопрос', value:''}, {valid: false, validType: "required", touched: false}),
+            questions: formControl({label: 'Your Question', value:''}, {valid: false, validType: "required", touched: false}),
             rightAnswerId: 1,
             option1: optionsCreator(1),
             option2: optionsCreator(2),
@@ -147,7 +147,7 @@ class QuizCreator extends Component{
                     
                     <Select
                      options={[1,2,3,4]}
-                     label='Правильный Ответ'
+                     label='Correct Answer'
                      onChange={this.onChange}
                      selectedOption={parseInt(this.state.selectedOption)}
                      />
@@ -157,17 +157,18 @@ class QuizCreator extends Component{
                          onClick={this.generateQuestion}
                          disable={!this.state.stateForm}
                          >
-                            Добавить Вопрос
+                            Add Question
                         </Button>
                         <Button cls='primary' 
                          onClick={this.createQuiz}
                          disable={!this.props.quiz.length}
                         >
-                            Создать Тест
+                            Create Test
                         </Button>
                     </div>
                  </div>
                  <div className='list-block'>
+                    <h4>Questions List</h4>
                     <ul>
                         {
                             this.props.quiz.map((quiz, index) => {

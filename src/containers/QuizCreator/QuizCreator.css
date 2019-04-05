@@ -12,7 +12,13 @@
     max-width: 250px;
     border-radius: 10px;
     margin-left: 20px;
-    margin-top: 49px;
+}
+
+.QuizCreator .list-block h4{
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
 }
 
 .QuizCreator .list-block ul {
@@ -32,6 +38,8 @@
     list-style: none;
     text-align: center;
     padding-right: 12px;
+    text-overflow: ellipsis;
+    overflow: hidden;
  }
 
 .QuizCreator .list-block ul li i{
@@ -49,7 +57,7 @@
     height: 540px;
     margin-top: 48px;
     border-radius: 10px;
-    box-shadow: 10px 12px 114px black;
+    box-shadow: -2px 7px 21px black;
     position: relative;
 }
 

@@ -105,7 +105,7 @@ class Auth extends Component{
                         onClick={this.Login}
                         disable={!this.state.authState}
                         >
-                            ВОЙТИ
+                            LOGIN
                         </Button>
                         
                         <Button 
@@ -113,7 +113,7 @@ class Auth extends Component{
                         onClick={this.Registranion}
                         disable={!this.state.authState}
                         >
-                            Регистрация
+                            REGISTRATION
                         </Button>
                     </div>
                  </div>

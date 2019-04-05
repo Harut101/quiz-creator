@@ -8,7 +8,7 @@ export function formControl(config, validation){
 
 export function optionsCreator(index) {
     return formControl({
-        label: `Ответ ${index}`,
+        label: `Answer ${index}`,
         id: index,
         value:''
 
