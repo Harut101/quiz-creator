@@ -1,0 +1,23 @@
+.Select {
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+}
+
+.Select select{
+    height: 37px;
+    width: 100%;
+    max-width: 285px;
+    border: 1px solid grey;
+    outline: none;
+    padding: 10px 10px;
+    border-radius: 6px;
+    font-size: 15px;
+    margin: 0px auto;
+}
+
+
+.Select label{
+   font-size: 20px; 
+   text-align: center;
+}

@@ -1,0 +1,59 @@
+.resultBlock{
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 10px 5px;
+    background: white;
+    box-shadow: 6px 6px 11px 4px black;
+}
+
+.resultBlock ul{
+    list-style: none;
+    color: #006064;
+}
+
+.resultBlock ul li{
+   border: 1px solid black;
+   margin-bottom: 6px;
+   padding: 10px 10px;
+   border-radius: 10px;
+   margin-right: 39px;
+   box-shadow: 2px 2px 4px 1px black;
+   position: relative;
+}
+
+
+.resultBlock p{
+    margin-left: 37px;
+    color: #006064;
+    font-weight: bold;
+    height: 25px;
+    border-radius: 5px
+}
+
+.resultBlock .Button {
+    margin-left: 42px;
+    height: 30px;
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.resultBlock .right{
+    background: green;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    border-radius: 100%;
+}
+
+.resultBlock .wrong{
+    background: red;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    border-radius: 100%;
+}

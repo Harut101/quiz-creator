@@ -1,0 +1,54 @@
+.Auth{
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    background: #33333d;
+}
+
+.AuthContent{
+    width: 100%;
+    max-width: 350px;
+    background: rgb(224, 222, 222);
+    height: 395px;
+    margin-top: 85px;
+    border-radius: 10px;
+    box-shadow: 10px 12px 114px black;
+    position: relative;
+}
+
+.AuthContent .footer{
+    position: absolute;
+    bottom: 50px;
+    left: -10px;
+}
+
+
+.AuthContent .footer .Button{
+    width: 130px;
+    height: 30px;
+}
+
+
+
+.AuthContent .Input:nth-child(1){
+    margin-top: 49px;
+    margin-bottom: 50px;
+
+}
+
+.AuthContent .Input{
+   margin-right: 20px;
+}
+
+.AuthContent .Input label{
+    margin-left: 30px;
+ }
+
+.AuthContent .Input input{
+    max-width: 260px;
+    margin-left: 20px
+}
+
+.AuthContent .Input label{
+    font-size: 20px
+}

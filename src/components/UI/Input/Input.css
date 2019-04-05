@@ -1,0 +1,22 @@
+.Input{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+
+.Input input{
+    height: 20px;
+    width: 100%;
+    max-width: 210px;
+    border: 1px solid grey;
+    outline: none;
+    padding: 10px 10px;
+    border-radius: 6px;
+    font-size: 20px;
+}
+
+.errorInput{
+    border: 1px solid red !important;
+    border-radius: 6px;
+}

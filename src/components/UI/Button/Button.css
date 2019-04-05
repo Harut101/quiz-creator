@@ -1,0 +1,30 @@
+.Button{
+    margin-left: 37px;
+    border: none;
+    color: white;
+    background: red;
+    font-weight: bold;
+    height: 25px;
+    border-radius: 5px;
+    outline: none;
+}
+
+
+.Button:hover{
+    cursor: pointer;
+    background: darkred;
+}
+
+
+.secondary{
+    background: #04b97f;
+}
+
+
+.error{
+    background: red;
+}
+
+.primary{
+    background: #005d57;
+}

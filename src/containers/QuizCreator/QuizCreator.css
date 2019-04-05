@@ -1,0 +1,87 @@
+.QuizCreator{
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    background: #ffde03;
+}
+
+
+.QuizCreator .list-block{
+    height: 350px;
+    width: 100%;
+    max-width: 250px;
+    border-radius: 10px;
+    margin-left: 20px;
+    margin-top: 49px;
+}
+
+.QuizCreator .list-block ul {
+   margin: 0;
+}
+
+.QuizCreator .list-block ul li{
+    width: 80%;
+    height: 30px;
+    font-weight: bold;
+    background: white;
+    padding: 3px 10px;
+    border-radius: 6px;
+    color: black;
+    margin-bottom: 10px;
+    position: relative;
+    list-style: none;
+    text-align: center;
+    padding-right: 12px;
+ }
+
+.QuizCreator .list-block ul li i{
+    position: absolute;
+    top: 5px;
+    font-size: 14px;
+    left: 176px;
+    color: red;
+ }
+
+.QuizCreatorContent{
+    width: 100%;
+    max-width: 350px;
+    background: rgb(224, 222, 222);
+    height: 540px;
+    margin-top: 48px;
+    border-radius: 10px;
+    box-shadow: 10px 12px 114px black;
+    position: relative;
+}
+
+.QuizCreatorContent .footer{
+    position: absolute;
+    bottom: 50px;
+    left: -10px;
+}
+
+
+.QuizCreatorContent .footer .Button{
+    width: 130px;
+    height: 30px;
+}
+
+
+.QuizCreatorContent .Input:nth-child(1){
+    margin-top: 33px;
+
+}
+
+.QuizCreatorContent .Input{
+    margin-right: -10px;
+}
+
+
+.QuizCreatorContent .Input input{
+    max-width: 260px;
+    margin-right: 12px;
+    height: 13px;
+}
+
+.QuizCreatorContent .Input label{
+    font-size: 20px;
+}

@@ -1,0 +1,30 @@
+.Layout{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.Layout main{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.Layout .LOGOUT {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    cursor: pointer;
+    color: white;
+    z-index: 100;
+    background: red;
+    font-weight: bold;
+    border-radius: 11px;
+    font-size: 12px;
+    font-weight: 900;
+    z-index: 1;
+}
+
+.Layout .LOGOUT:hover {
+   background: rgba(212, 3, 3, 0.904);
+}
