@@ -1,15 +1,6 @@
 import axios from "axios";
 
-import {ADD_QUIZ, CLEAR_QUIZ, DELETE} from './actionTypes'
-
-export function addQuestion(quiz){
-    return{
-        type: ADD_QUIZ,
-        payload: {
-            quiz: quiz
-        }
-    }
-}
+import {ADD_QUIZ, CLEAR_QUIZ, DELETE, ADD_QUIZ_IMAGE} from './actionTypes'
 
 
 export function saveQuestion(){
@@ -20,6 +11,16 @@ export function saveQuestion(){
         dispatch(toZeroQuiz())
       })
       .catch((error) => console.log(error))
+    }
+}
+
+
+export function addQuestion(quiz){
+    return{
+        type: ADD_QUIZ,
+        payload: {
+            quiz: quiz
+        }
     }
 }
 
@@ -35,6 +36,15 @@ export function deletQuestion(id){
         type: DELETE,
         payload: {
             id: id
+        }
+    }
+}
+
+export function addQuizImage(file){
+    return{
+        type: ADD_QUIZ_IMAGE,
+        payload: {
+            quizImage: file
         }
     }
 }

@@ -52,3 +52,44 @@
 .AuthContent .Input label{
     font-size: 20px
 }
+
+.Auth .uploader {
+    display: flex;
+    margin-top: 85px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #04b97f;;
+    padding: 5px;
+    margin-right: 15px;
+    position: relative;
+}
+
+.Auth .uploader input {
+    display: none;
+}
+
+.Auth .uploader label {
+  position: absolute;
+  top: 38px;
+  left: 6px;
+  font-size: 17px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}
+
+
+.uploader .imgAvatar {
+    position: absolute;
+    top: 4px;
+    left: 3px;
+    width: 93px;
+    height: 93px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.uploader:hover img{
+    display: none;
+}

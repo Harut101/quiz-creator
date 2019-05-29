@@ -5,6 +5,7 @@ import Drawer from '../../components/Drawer/Drawer'
 import Button from '../../components/UI/Button/Button'
 import { connect } from 'react-redux'
 import {logOut, login} from '../../store/actions/auth'
+import { getUsers } from '../../helpers/userDataCare'
 
 class Layout extends Component{
 state = {
@@ -19,6 +20,8 @@ componentDidMount(){
     obj.email = email;
     obj.password = password;
     obj.returnSecureToken = true;
+
+    this.props.getUsers();
 
     if(email && password){
         this.props.login(obj);
@@ -41,9 +44,12 @@ LOGOUT = () => {
             <div className="Layout">
                {
                    this.props.isLoginUser 
-                   ?  <Button cls='LOGOUT' onClick={this.LOGOUT}>
+                   ? <div className="profile-container">
+                        <img src={this.props.userAvatar ? this.props.userAvatar : "https://cdn1.iconfinder.com/data/icons/business-charts/512/customer-512.png"} alt="avatar"/>
+                        <Button cls='LOGOUT' onClick={this.LOGOUT}>
                          LOGOUT
-                      </Button>
+                        </Button>
+                     </div>
                    : null
                 }
 
@@ -66,7 +72,8 @@ LOGOUT = () => {
 
 const mapStateToProps = (state) => {
     return{
-        isLoginUser: state.authReducer.isLoginUser 
+        isLoginUser: state.authReducer.isLoginUser,
+        userAvatar: state.authReducer.userAvatar
     }
 }
 
@@ -75,6 +82,7 @@ const mapDispatchToProps = (dispatch) => {
     return{
         logOut: () =>{dispatch(logOut())},
         login: (obj) =>{dispatch(login(obj))},
+        getUsers: () =>{dispatch(getUsers())}
     }
 }
 

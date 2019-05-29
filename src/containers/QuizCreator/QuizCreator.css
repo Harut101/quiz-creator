@@ -93,3 +93,45 @@
 .QuizCreatorContent .Input label{
     font-size: 20px;
 }
+
+
+.QuizCreator .uploader {
+    display: flex;
+    margin-top: 50px;
+    width: 90px;
+    height: 90px;
+    border-radius: 10%;
+    background: rgb(149, 149, 149);
+    padding: 5px;
+    margin-right: 15px;
+    position: relative;
+}
+
+.QuizCreator .uploader input {
+    display: none;
+}
+
+.QuizCreator .uploader label {
+  position: absolute;
+  top: 38px;
+  left: 6px;
+  font-size: 17px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}
+
+
+.QuizCreator .uploader .imgAvatar {
+    position: absolute;
+    top: 4px;
+    left: 3px;
+    width: 93px;
+    height: 93px;
+    border-radius: 10%;
+    object-fit: cover;
+}
+
+.QuizCreator .uploader:hover img{
+    display: none;
+}

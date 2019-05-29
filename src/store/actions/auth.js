@@ -1,4 +1,5 @@
 import axios from "axios";
+import { userDataCare, setUserAvatar } from '../../helpers/userDataCare';
 import {LOGIN, 
         REGISTRATION, 
         LOGOUT, 
@@ -11,22 +12,20 @@ import {LOGIN,
 
 
 export function login(data, redirect = false){
-  return dispatch =>{
+  return (dispatch, getState) =>{
         axios.post(LOGIN_URL, data)
         .then(res => {
-            let token = res.data.idToken;
-            let email = data.email;
-            let password = data.password;
+            let {idToken, expiresIn, refreshToken} =  res.data;
+            let {email, password} = data;
 
-            let expiretionTime = res.data.expiresIn;
-            let refreshToken = res.data.refreshToken;
+            let users = getState().usersDataReducer.users;
 
             localStorage.setItem('email', email);
             localStorage.setItem('password', password);
 
-
-            dispatch(loginDispatcher(token, email, password));
-            expierListener(expiretionTime, dispatch, refreshToken);
+            setUserAvatar(email, users, dispatch);
+            dispatch(loginDispatcher(idToken, email, password));
+            expierListener(expiresIn, dispatch, refreshToken);
             dispatch(Redirect(redirect));
         })
         .catch(err => {
@@ -36,22 +35,20 @@ export function login(data, redirect = false){
 }
 
 
-export function registration(data, redirect = false){
+export function registration(data, avatar, redirect = false){
+    debugger;
     return dispatch => {
             axios.post(REGISTRATION_URL, data)
             .then(res => {
-                let token = res.data.idToken;
-                let email = data.email;
-                let password = data.password;
-
-                let expiretionTime = res.data.expiresIn;
-                let refreshToken = res.data.refreshToken;
+               let {idToken, expiresIn, refreshToken} =  res.data;
+               let {email, password} = data;
 
                 localStorage.setItem('email', email);
                 localStorage.setItem('password', password);
 
-                dispatch(registrationDispatcher(token, email, password));  
-                expierListener(expiretionTime, dispatch, refreshToken);
+                dispatch(registrationDispatcher(idToken, email, password));  
+                userDataCare(email, password, avatar);
+                expierListener(expiresIn, dispatch, refreshToken);
                 dispatch(Redirect(redirect));
             })
             .catch(err => {
@@ -80,13 +77,10 @@ function autologin(dispatch, refreshToken){
 
     axios.post(EXCHANGE_TOKEN_URL, data)
     .then(res => {
-       
-        let token = res.data.id_token;
-        let refreshToken = res.data.refresh_token;
-        let expiretionTime = res.data.expires_in;
+        let {id_token, expires_in, refresh_token} =  res.data;
 
-        dispatch(changeToken(token));
-        expierListener(expiretionTime, dispatch, refreshToken);
+        dispatch(changeToken(id_token));
+        expierListener(expires_in, dispatch, refresh_token);
     })
     .catch(err => {
         console.log(err);

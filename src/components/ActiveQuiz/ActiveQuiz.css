@@ -10,6 +10,12 @@
 .Question{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 
+.ActiveQuiz img{
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+ }

@@ -3,10 +3,12 @@ import '../QuizCreator/QuizCreator.css';
 import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
 import Select from '../../components/UI/Select/Select';
+import Uploader from '../../components/Uploader/Uploader'
 import {formControl, optionsCreator} from '../../helpers/formHelper';
 import {validation, formValidation} from '../../helpers/validation';
 import {connect} from 'react-redux';
 import {addQuestion, saveQuestion, deletQuestion} from '../../store/actions/quizCreator';
+import { addQuizImage } from '../../store/actions/quizCreator'
 
 
 class QuizCreator extends Component{
@@ -24,22 +26,16 @@ class QuizCreator extends Component{
         selectedOption: 1
     }
 
+    componentDidMount(){
+        this.initialState = {...this.state.form};
+    }
+
     toZeroState = () => {
         let form = {...this.state.form};
         let selectedOption = {...this.state.selectedOption};
         let stateForm = {...this.state.stateForm};
 
-        let newForm =  {
-            questions: formControl({label: 'Ваш Вопрос', value:''}, 
-            {valid: false, validType: "required", touched: false}),
-            rightAnswerId: 1,
-            option1: optionsCreator(1),
-            option2: optionsCreator(2),
-            option3: optionsCreator(3),
-            option4: optionsCreator(4),
-        }
-
-        form = newForm;
+        form = this.initialState;
         selectedOption = 1;
         stateForm = false;
 
@@ -108,15 +104,17 @@ class QuizCreator extends Component{
     generateQuestion = () =>{
         let form = this.state.form;
         let id = this.props.quiz.length + 1;
-        
+        let image = this.props.quizImage || null;
         let obj = {};
+
         obj.answers = [];
         obj.id = id;
-
+        obj.image = image
+        
         for(let key in form){
             if(form[key].id){
                 obj.answers.push(form[key]);
-            }else{
+            } else{
                 if(key === 'questions'){
                     obj[key] = form[key].value;
                 }else{
@@ -126,7 +124,7 @@ class QuizCreator extends Component{
         }
         
       this.props.addQuestion(obj);
-      this.toZeroState()
+      this.toZeroState();
     }
 
     createQuiz = () =>{
@@ -138,10 +136,15 @@ class QuizCreator extends Component{
         
     }
 
+    uploaderAction = (file) => {
+        this.props.addQuizImage(file);
+    }
+
     render(){
 
         return(
             <div className='QuizCreator'>
+                 <Uploader action={this.uploaderAction} imageUrl={this.props.quizImage}/>
                  <div className='QuizCreatorContent'>
                     {this.renderInput()}
                     
@@ -189,7 +192,8 @@ class QuizCreator extends Component{
 
 const mapStateToProps = (state) => {
  return {
-     quiz: state.quizCreateReducer.quiz
+     quiz: state.quizCreateReducer.quiz,
+     quizImage: state.quizCreateReducer.quizImage
  }
 }
 
@@ -197,7 +201,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         addQuestion: (obj) => dispatch(addQuestion(obj)),
         saveQuestion: () => dispatch(saveQuestion()),
-        deletQuestion: (id) => dispatch(deletQuestion(id))
+        deletQuestion: (id) => dispatch(deletQuestion(id)),
+        addQuizImage: (file) => dispatch(addQuizImage(file)),
     }
 }
 

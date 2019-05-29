@@ -18,14 +18,17 @@ export const REPET_GAME = 'REPET_GAME';
 
 //{component QuizCreator} Quiz List
 export const ADD_QUIZ = 'ADD_QUIZ';
-export const CLEAR_QUIZ = 'CLEAR_QUIZ'
-export const DELETE = 'DELETE'
+export const CLEAR_QUIZ = 'CLEAR_QUIZ';
+export const DELETE = 'DELETE';
+export const ADD_QUIZ_IMAGE = 'ADD_QUIZ_IMAGE';
 
 //{component Auth} login Registration
 export const LOGIN = 'LOGIN';
 export const REGISTRATION = 'REGISTRATION';
 export const LOGOUT = 'LOGOUT';
 export const CHANGE_TOKEN = 'CHANGE_TOKEN';
+export const ADD_AVATAR = 'ADD_AVATAR';
+export const ADD_USER = 'ADD_USER';
 export const REGISTRATION_URL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBmI0--_5dUOPAkMUZ8Ed3VavJp91oaFcU';
 export const LOGIN_URL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBmI0--_5dUOPAkMUZ8Ed3VavJp91oaFcU';
 export const EXCHANGE_TOKEN_URL = 'https://securetoken.googleapis.com/v1/token?key=AIzaSyBmI0--_5dUOPAkMUZ8Ed3VavJp91oaFcU';

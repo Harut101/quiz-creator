@@ -4,7 +4,9 @@ import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
 import { validationAuth, formValidation } from '../../helpers/validation';
 import { connect } from 'react-redux';
-import {login, registration} from '../../store/actions/auth'
+import {login, registration} from '../../store/actions/auth';
+import Uploader from '../../components/Uploader/Uploader';
+import { addAvatar } from '../../helpers/userDataCare'
 
 class Auth extends Component{
 
@@ -85,17 +87,23 @@ class Auth extends Component{
 
     Registranion = () => {
         let obj = {};
+        let avatar = this.props.userAvatar;
         obj.email = this.state.field.email.value;
         obj.password = this.state.field.password.value;
         obj.returnSecureToken = true;
 
-       this.props.registration(obj, true);
+       this.props.registration(obj, avatar, true);
+    }
+
+    uploaderAction = (file) => {
+        this.props.addAvatar(file);
     }
 
     render(){
         
         return (
             <div className='Auth'>
+                 <Uploader action={this.uploaderAction} imageUrl={this.props.userAvatar}/>
                  <div className='AuthContent'>
                         {this.renderInput()}
                         
@@ -123,11 +131,19 @@ class Auth extends Component{
 }
 
 
-const mapDispatchToProps = (dispatch) => {
-    return{
-        login: (obj, redirect) =>{dispatch(login(obj, redirect))},
-        registration : (obj, redirect) => {dispatch(registration(obj, redirect))}
+const mapStateToProps = (state) => {
+    return {
+        userAvatar: state.authReducer.userAvatar
     }
 }
 
-export default connect(null, mapDispatchToProps)(Auth);
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        login: (obj, redirect) =>{dispatch(login(obj, redirect))},
+        registration : (obj, avatar, redirect) => {dispatch(registration(obj, avatar,redirect))},
+        addAvatar: (file) => dispatch(addAvatar(file)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);
