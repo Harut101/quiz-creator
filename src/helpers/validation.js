@@ -34,7 +34,7 @@ export function formValidation(form){
        }
     }
    
-    if(stateArray.length === 5 || stateArray.length === 2){
+    if(stateArray.length === form.count){
         let exit = false;
         
         for(let i = 0; i < stateArray.length; i++) {

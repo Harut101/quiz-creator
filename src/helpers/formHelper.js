@@ -17,6 +17,5 @@ export function optionsCreator(index) {
      valid: false, 
      validType: "required",
      touched: false
-    }
-    )
+    })
 }

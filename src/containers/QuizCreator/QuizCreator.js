@@ -1,110 +1,55 @@
-import React, { Component } from 'react';
+import React, { useState, useReducer } from 'react';
 import '../QuizCreator/QuizCreator.css';
 import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
 import Select from '../../components/UI/Select/Select';
 import Uploader from '../../components/Uploader/Uploader'
-import {formControl, optionsCreator} from '../../helpers/formHelper';
-import {validation, formValidation} from '../../helpers/validation';
-import {connect} from 'react-redux';
-import {addQuestion, saveQuestion, deletQuestion} from '../../store/actions/quizCreator';
-import { addQuizImage } from '../../store/actions/quizCreator'
+import { validation, formValidation } from '../../helpers/validation';
+import { addQuestion, deletQuestion, toZeroQuiz } from '../../store/actions/quizCreator';
+import { addQuizImage } from '../../store/actions/quizCreator';
+import { initialState, quizCreateReducer } from '../../store/reducers/quizCreator';
+import { formParams } from '../../utils/params/quizCreatorParams';
+import axios from "axios";
 
 
-class QuizCreator extends Component{
+ const QuizCreator = () => {
+    const [state, dispatch] = useReducer(quizCreateReducer, initialState);
+    const [stateForm, setStateForm] = useState(false);
+    const [selectedOption, setOption] = useState(1);
+    const [form, setForm] = useState(formParams());
 
-    state = {
-        stateForm: false,
-        form: {
-            questions: formControl({label: 'Your Question', value:''}, {valid: false, validType: "required", touched: false}),
-            rightAnswerId: 1,
-            option1: optionsCreator(1),
-            option2: optionsCreator(2),
-            option3: optionsCreator(3),
-            option4: optionsCreator(4),
-        },
-        selectedOption: 1
+
+   const toZeroState = () => { 
+        setForm(formParams());
+        setStateForm(false);
+        setOption(1);
     }
 
-    componentDidMount(){
-        this.initialState = {...this.state.form};
+  const onChange = (id) => {
+        let selectedOption = id;
+        setForm({...form, rightAnswerId : id})
+        setOption(selectedOption)
     }
 
-    toZeroState = () => {
-        let form = {...this.state.form};
-        let selectedOption = {...this.state.selectedOption};
-        let stateForm = {...this.state.stateForm};
+  const inputOnChange = (val, field) => {
+         let fild = form[field]
 
-        form = this.initialState;
-        selectedOption = 1;
-        stateForm = false;
-
-        this.setState({
-            form,
-            selectedOption,
-            stateForm
-        })
-    }
-
-    renderInput(){
-        return Object.keys(this.state.form).map((field, index)=>{
-            let fild = this.state.form[field];
-
-            return(
-               <React.Fragment key={index}>
-                    {field !== 'rightAnswerId' ?
-                    <Input 
-                        label={fild.label}
-                        key={index}
-                        name={field}
-                        onChange={this.inputOnChange}
-                        isValid={fild.valid}
-                        isTouched={fild.touched}
-                        value={fild.value}
-                    />
-                        : null
-                    }
-                            {index === 0 ? <hr/> : null}
-               </React.Fragment>
-            ) 
-            
-        });
-    }
-
-    onChange = (id) => {
-        let form = {...this.state.form};
-        let selectedOption = {...this.state.selectedOption}
-
-        form['rightAnswerId'] = id;
-        selectedOption = id;
-
-        this.setState({
-           form,
-           selectedOption
-        })
-    }
-
-    inputOnChange = (val, field) =>{
-        let form = {...this.state.form};
-        let fild = {...form[field]}
-
-        fild.value = val;
-        fild.valid = validation(fild.value, fild.validType);
-        fild.touched = true;
+         fild.value = val;
+         fild.valid = validation(fild.value, fild.validType);
+         fild.touched = true;
         
-        form[field] = fild;
-        
-        this.setState({
-            form,
-            stateForm: formValidation(form)
-        })
+         form[field] = fild;
+
+         let stateForm = formValidation(form);
+
+        setForm({...form});
+        setStateForm(stateForm);
     
     }
 
-    generateQuestion = () =>{
-        let form = this.state.form;
-        let id = this.props.quiz.length + 1;
-        let image = this.props.quizImage || null;
+  const  generateQuestion = () =>{
+        let id = state.quiz.length + 1;
+        let image = state.quizImage || null;
         let obj = {};
 
         obj.answers = [];
@@ -123,48 +68,77 @@ class QuizCreator extends Component{
             }
         }
         
-      this.props.addQuestion(obj);
-      this.toZeroState();
+     dispatch(addQuestion(obj));
+     toZeroState();
     }
 
-    createQuiz = () =>{
-        this.props.saveQuestion();
-    }
 
-    delete = (id) => {
-       this.props.deletQuestion(id);
+    const saveQuestion = () => {
+        axios.post('https://react-quiz-e0237.firebaseio.com/quizes.json', state.quiz)
+          .then(() => {
+            dispatch(toZeroQuiz())
+          })
+          .catch((error) => console.log(error))
         
     }
 
-    uploaderAction = (file) => {
-        this.props.addQuizImage(file);
+   const removeQuestion = (id) => {
+       dispatch(deletQuestion(id));
+        
     }
 
-    render(){
+   const uploaderAction = (file) => {
+        dispatch(addQuizImage(file));
+    }
+
+    const renderInput = () =>{
+        return Object.keys(form).map((field, index)=>{
+            let fild = form[field];
+            
+            return(
+               <React.Fragment key={index}>
+                    {field !== 'rightAnswerId' && field !== 'count'  ?
+                        <Input 
+                            label={fild.label}
+                            key={index}
+                            name={field}
+                            onChange={inputOnChange}
+                            isValid={fild.valid}
+                            isTouched={fild.touched}
+                            value={fild.value}
+                        />
+                            : null
+                    }
+                    {index === 0 ? <hr/> : null}
+               </React.Fragment>
+            ) 
+            
+        });
+    }
 
         return(
             <div className='QuizCreator'>
-                 <Uploader action={this.uploaderAction} imageUrl={this.props.quizImage}/>
+                 <Uploader action={uploaderAction} imageUrl={state.quizImage}/>
                  <div className='QuizCreatorContent'>
-                    {this.renderInput()}
+                    {renderInput()}
                     
                     <Select
                      options={[1,2,3,4]}
                      label='Correct Answer'
-                     onChange={this.onChange}
-                     selectedOption={parseInt(this.state.selectedOption)}
+                     onChange={onChange}
+                     selectedOption={parseInt(selectedOption)}
                      />
                         
                     <div className='footer'>
                         <Button cls='secondary'
-                         onClick={this.generateQuestion}
-                         disable={!this.state.stateForm}
+                         onClick={generateQuestion}
+                         disable={!stateForm}
                          >
                             Add Question
                         </Button>
                         <Button cls='primary' 
-                         onClick={this.createQuiz}
-                         disable={!this.props.quiz.length}
+                         onClick={saveQuestion}
+                         disable={!state.quiz.length}
                         >
                             Create Test
                         </Button>
@@ -174,10 +148,10 @@ class QuizCreator extends Component{
                     <h4>Questions List</h4>
                     <ul>
                         {
-                            this.props.quiz.map((quiz, index) => {
+                            state.quiz.map((quiz, index) => {
                                     return(
                                         <li key={index}>
-                                         <i className="Menu fa  fa-times open" onClick={() => this.delete(quiz.id)}></i>
+                                         <i className="Menu fa  fa-times open" onClick={() => removeQuestion(quiz.id)}></i>
                                             {quiz.questions}
                                         </li>
                                     )
@@ -187,23 +161,6 @@ class QuizCreator extends Component{
                  </div>
             </div>
         )
-    }
 }
 
-const mapStateToProps = (state) => {
- return {
-     quiz: state.quizCreateReducer.quiz,
-     quizImage: state.quizCreateReducer.quizImage
- }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addQuestion: (obj) => dispatch(addQuestion(obj)),
-        saveQuestion: () => dispatch(saveQuestion()),
-        deletQuestion: (id) => dispatch(deletQuestion(id)),
-        addQuizImage: (file) => dispatch(addQuizImage(file)),
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(QuizCreator);
+ export default QuizCreator;

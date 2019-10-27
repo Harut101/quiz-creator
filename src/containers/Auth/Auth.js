@@ -34,7 +34,8 @@ class Auth extends Component{
                     required: true,
                     validationMethod: 6
                 }
-            }
+            },
+            count: 2,
         }
     }
 
@@ -44,16 +45,22 @@ class Auth extends Component{
         let field = this.state.field[fild];
            
             return(
-                <Input 
-                    label={field.label}
-                    type={field.type}
-                    key={index}
-                    name={fild}
-                    value={field.value}
-                    onChange={this.onChangeHandler}
-                    isValid={field.valid}
-                    isTouched={field.touched}
-                  />
+                <React.Fragment key={index}>
+                    {fild !== 'count'  ?
+                        <Input 
+                            label={field.label}
+                            type={field.type}
+                            key={index}
+                            name={fild}
+                            value={field.value}
+                            onChange={this.onChangeHandler}
+                            isValid={field.valid}
+                            isTouched={field.touched}
+                        />
+                        : null
+                    }
+                
+               </React.Fragment>
             )
        });
        

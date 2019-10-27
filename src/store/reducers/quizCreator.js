@@ -1,11 +1,11 @@
 import {ADD_QUIZ, CLEAR_QUIZ, DELETE, ADD_QUIZ_IMAGE} from '../actions/actionTypes'
 
-const initialState = {
+export const initialState = {
     quiz: [],
     quizImage: null
 }
 
-export default function quizCreateReducer(state = initialState, action){
+export function quizCreateReducer(state = initialState, action){
     switch(action.type){
         case ADD_QUIZ :
         return{
